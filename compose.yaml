@@ -1,0 +1,23 @@
+services:
+  am-flyway:
+    image: flyway/flyway
+    command: -url=jdbc:postgresql://am-postgresdb/movie -schemas=public -user=abdi -password=123456789 -connectRetries=60 migrate
+    volumes:
+      - ${PWD}/src/main/resources/db/migration:/flyway/sql
+    depends_on:
+      - am-postgresdb
+
+  am-postgresdb:
+    image: postgres:13.3-alpine
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_USER: abdi
+      POSTGRES_PASSWORD: 123456789
+      POSTGRES_DB: movie
+
+  am-redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+

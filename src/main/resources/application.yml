@@ -1,0 +1,16 @@
+version:
+  @project.version@
+name:
+  @project.name@
+
+server:
+  port: 8093
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: movie
+  config:
+    import: classpath:messages.yml
+
